@@ -110,8 +110,7 @@ class TelegramBotController extends Controller
 				try {
 					$bot->sendDocument($chatId, new \CURLFile($filePath));
 					
-					$endTime  = microtime(true);
-					$duration = round($endTime - $startTime, 2);
+					$duration = round(microtime(true) - $startTime, 2);
 					$bot->sendMessage(
 						$chatId,
 						"✅ Ma'lumotlar muvaffaqiyatli yuborildi!\n\n".
@@ -240,8 +239,8 @@ class TelegramBotController extends Controller
 				$sheet->setCellValue('D'.$row, $item['message'] ?? '');
 				$sheet->setCellValue('E'.$row, $item['action'] ?? '');
 				$sheet->setCellValue('F'.$row, $item['query'] ?? '');
-				$sheet->setCellValue('G'.$row, json_encode($item['post'] ?? [], JSON_UNESCAPED_UNICODE));
-				$sheet->setCellValue('H'.$row, json_encode($item['get'] ?? [], JSON_UNESCAPED_UNICODE));
+				$sheet->setCellValue('G'.$row, json_encode($item['post'] ?? [], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
+				$sheet->setCellValue('H'.$row, json_encode($item['get'] ?? [], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
 				$sheet->setCellValue('I'.$row, $item['ip'] ?? '');
 				$row++;
 			}
